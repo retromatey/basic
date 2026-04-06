@@ -1,21 +1,4 @@
 ' ----------- ROBOT MISSILE ------------
-' The year is 2582 and the people of
-' Earth are in the midst of battle
-' against the Robots.  A lethal Robot
-' Missile has just landed and everyone
-' is depending on you to find the secret
-' code which unlocks its defuse
-' mechanism.  If you fail, the entire
-' Earth Command Headquarters will be
-' blown up.  
-' Your computer knows what the code
-' letter is.  You must type in your
-' guess and it will tell you whether the
-' code letter is earlier of later in the
-' aplphabet.  You have four chances
-' to find the correct letter before the
-' missile blows up.
-' 
 ' This program was adapted from the book
 ' titled "Computer Battlegames"
 ' published in 1982 by Usborne
@@ -41,8 +24,7 @@ dim guess as string = ""
 dim letter as string = ""
 letter = chr$(64+int(rnd(1)*26+1))
 
-print "Robot Missile"
-print
+Intro()
 print "Type the correct code"
 print "Letter (A-Z) to"
 print "defuse the missile."
@@ -72,5 +54,40 @@ else
     print "You blew it"
     print "The correct code was ";letter
 end if
+print
 
+print "-------------- GAME OVER ---------------"
 end
+
+'------------- functions ---------------
+
+sub Intro()
+    local confirm as string = ""
+    
+    print
+    print "------------ ROBOT MISSILE -------------"
+    print
+    print "Type Y for instructions"
+    print "or Enter to continue."
+
+    input confirm
+
+    if confirm = "Y" then
+        print
+        print "The year is 2582 and the people of Earth"
+        print "are in the midst of battle against the"
+        print "Robots.  A lethal Robot Missile has just"
+        print "landed and everyone is depending on you"
+        print "to find the secret code which unlocks"
+        print "its defuse mechanism.  If you fail, the"
+        print "entire Earth Command Headquarters will"
+        print "be blown up.  Your computer knows what"
+        print "the code letter is.  You must type in"
+        print "your guess and it will tell you whether"
+        print "the code letter is earlier of later in"
+        print "the aplphabet.  You have four chances to"
+        print "find the correct letter before the"
+        print "missile blows up."
+        print
+    end if
+end sub

@@ -22,18 +22,9 @@ dim difficulty as integer = 0
 dim message as string = ""
 dim entry as string = ""
 
-print
-print "---------- THE VITAL MESSAGE -----------"
-print
-
-Instructions()
+Intro()
 difficulty = GetDifficulty()
-
-print "Difficulty is";difficulty
-
 message = SetMessage(difficulty)
-
-print "Message is ";message
 
 print "Send this message:"
 print
@@ -43,6 +34,7 @@ cls
 
 input entry
 
+print
 if entry = message then
     print "Message correct"
     print "The war is over!"
@@ -51,8 +43,13 @@ else
     print "You should have sent:"
     print message
 end if
+print
 
+print "-------------- GAME OVER ---------------"
 end
+
+
+'------------- functions ---------------
 
 sub DelaySeconds(d as integer)
     local ms as integer = d * 1000
@@ -83,11 +80,17 @@ function GetDifficulty() as integer
     GetDifficulty = result
 end function
 
-sub Instructions
+sub Intro
     local confirm as string = ""
+
+    print
+    print "---------- THE VITAL MESSAGE -----------"
+    print
     print "Type Y for instructions"
     print "or Enter to continue."
+
     input confirm
+
     if confirm = "Y" then
         print
         print "You are a laser communications operator."

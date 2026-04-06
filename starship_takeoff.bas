@@ -1,19 +1,4 @@
 ' ---------- STARSHIP TAKEOFF ----------
-' You are a starship captain.  You have
-' crashed your ship on a strange planet
-' and must take off again quickly in the
-' alien ship you have captured.  The
-' ship's computer tells you the gravity
-' on the planet.  You must guess the
-' force required for a successful take
-' off.  If you guess too low, the ship
-' will not lift off the ground.  If you
-' guess too high, the ship's fail-safe
-' mechanism comes into operation to
-' prevent it being burnt up.  If you are
-' still on the planet after ten tries,
-' the aliens will capture you.
-' 
 ' This program was adapted from the book
 ' titled "Computer Spacegames" published
 ' in 1982 by Usborne Publishing.
@@ -40,6 +25,7 @@ dim tries as integer = 10
 dim force as integer = 0
 dim success as integer = FALSE
 
+Intro()
 print "Gravity =";gravity
 print "Type in force"
 
@@ -64,5 +50,40 @@ else
     print "You failed -"
     print "The aliens got you"
 end if
+print
 
+print "-------------- GAME OVER ---------------"
 end
+
+'------------- functions ---------------
+
+sub Intro()
+    local confirm as string = ""
+    
+    print
+    print "----------- STARSHIP TAKEOFF -----------"
+    print
+    print "Type Y for instructions"
+    print "or Enter to continue."
+
+    input confirm
+
+    if confirm = "Y" then
+        print
+        print "You are a starship captain.  You have"
+        print "crashed your ship on a strange planet"
+        print "and must take off again quickly in the"
+        print "alien ship you have captured.  The"
+        print "ship's computer tells you the gravity on"
+        print "the planet.  You must guess the force"
+        print "required for a successful take off.  If"
+        print "you guess too low, the ship will not"
+        print "lift off the ground.  If you guess too"
+        print "high, the ship's fail-safe mechanism"
+        print "comes into operation to prevent it being"
+        print "burnt up.  If you are still on the"
+        print "planet after ten tries, the aliens will"
+        print "capture you."
+        print
+    end if
+end sub
