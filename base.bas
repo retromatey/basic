@@ -27,6 +27,17 @@ end
 
 '------------- functions ---------------
 
+sub Pager()
+    local pressed as string = ""
+
+    ' Flush buffer
+    do while inkey$ <> "" : loop
+    print "Press any key to continue."
+    do
+        pressed = inkey$
+    loop while pressed = ""
+end sub
+
 sub Intro()
     local confirm as string = ""
     
