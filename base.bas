@@ -8,50 +8,77 @@
 '
 ' Compatible with the Pico Pi running
 ' Picomite
-
 option explicit
 option default none
 
 const TRUE = 1
 const FALSE = 0
 
-cls
-randomize timer()
-
-Intro()
-
-
-
-print "-------------- GAME OVER ---------------"
+Main()
 end
+
 
 '------------- functions ---------------
 
-sub Pager()
-    local pressed as string = ""
-
-    ' Flush buffer
-    do while inkey$ <> "" : loop
-    print "Press any key to continue."
-    do
-        pressed = inkey$
-    loop while pressed = ""
+sub Main
+    cls
+    randomize timer()
+    Intro()
+    GameLoop()
 end sub
 
-sub Intro()
+sub Intro
     local confirm as string = ""
     
     print
-    print "-------------- TITLE HERE --------------"
+    print "------------ TITLE HERE --------------"
     print
     print "Type Y for instructions"
     print "or Enter to continue."
 
     input confirm
 
-    if confirm = "Y" then
+    if ucase$(confirm) = "Y" then
         print
-        print "Some instructions will go here..."
+        print "instructions here..."
         print
+        Pager()
     end if
+end sub
+
+sub GameLoop
+    local game_over as integer = FALSE
+    do
+        ' Add logic here...
+        game_over = EndGame()
+    loop until game_over
+end sub
+
+function EndGame() as integer
+    local result as integer = TRUE
+    local response as string = ""
+
+    print "Press Y to play again or Enter to exit."
+    input response
+
+    if ucase$(response) = "Y" then
+        result = FALSE
+        print
+    else
+        print "-------------- GAME OVER ---------------"
+    end if
+
+    EndGame = result
+end function
+
+sub Pager
+    local pressed as string = ""
+
+    ' Flush buffer
+    do while inkey$ <> "" : loop
+    print "Press any key to continue."
+    print
+    do
+        pressed = inkey$
+    loop while pressed = ""
 end sub
