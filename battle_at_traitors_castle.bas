@@ -8,8 +8,8 @@
 '
 ' Compatible with the Pico Pi running
 ' Picomite
-'option explicit
-'option default none
+option explicit
+option default none
 
 const TRUE = 1
 const FALSE = 0
@@ -64,54 +64,33 @@ end sub
 
 sub GameLoop
     local game_over as integer = FALSE
+    local score as integer = 0
+    local counter as integer = 0
+    local enemy_pos as integer = 0
+    local hit as integer = TRUE
+
     do
+        score = 0
 
+        for counter = 1 to 10
+            enemy_pos = PrintWall()
+            hit = TakeShot(enemy_pos)
 
-' **************************************
-' begin original game
-' **************************************
+            if hit then
+                print "Good shot"
+                score = score + 1
+            else
+                print "Missed"
+            end if
 
-let s = 0
-for g = 1 to 10
-    let r$ = ""
-    let t = int(rnd(1)*9+1)
+            ' A slight pause to prevent
+            ' the next button click from
+            ' carrying over.
+            pause 300
+        next counter
 
-    for l = 1 to 9
-        if l = t then let r$ = r$ + "O"
-        if l <> t then let r$ = r$ + "."
-    next l
-
-    print r$, ' what's up with the comma?
-
-    ' Flush buffer
-    do while inkey$ <> "" : loop
-    loop_delay = 10
-    total_delay = loop_delay * 150
-    do
-        let i$ = inkey$
-        if val("0" + i$) = t then goto Hit
-        pause loop_delay
-        total_delay = total_delay - loop_delay
-    loop while i$ = "" and total_delay > 0
-
-    print "Missed"
-    goto Miss
-
-    Hit:
-    print "Good shot"
-    let s = s + 1
-
-    Miss:
-next g
-
-print "You hit ";s;" out of 10"
-print
-
-
-' **************************************
-' end original game
-' **************************************
-
+        print "You hit ";score;" out of 10"
+        print
 
         game_over = EndGame()
     loop until game_over
@@ -146,3 +125,47 @@ sub Pager
     loop while pressed = ""
 end sub
 
+function PrintWall() as integer
+    local wall as string = ""
+    local enemy_pos as integer = 0
+    local counter as integer = 0
+
+    enemy_pos = int(rnd(1)*9+1)
+
+    for counter = 1 to 9
+        if counter = enemy_pos then 
+            wall = wall + "O"
+        else
+            wall = wall + "."
+        end if
+    next counter
+
+    print wall,
+    PrintWall = enemy_pos
+end function
+
+function TakeShot(enemy_pos as integer) as integer
+    local delay as integer = 0
+    local count_down as integer = 0
+    local key_pressed as string = ""
+    local position as integer = 0
+    local hit as integer = FALSE
+
+    ' Flush buffer
+    do while inkey$ <> "" : loop
+
+    delay = 10
+    count_down = delay * 110
+
+    do
+        key_pressed = inkey$
+        position = val("0" + key_pressed)
+        if position = enemy_pos then 
+            hit = TRUE
+        end if
+        count_down = count_down - delay
+        pause delay
+    loop while not hit and key_pressed = "" and count_down > 0
+
+    TakeShot = hit
+end function
